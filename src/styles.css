@@ -86,14 +86,6 @@ input {
   padding: 8px;
 }
 
-input:hover {
-  border: 1px solid #616365;
-}
-
-input:focus {
-  border: 1px solid #0095ff;
-}
-
 .container {
   max-width: 720px;
   padding: 3rem 1.5rem 2rem;
@@ -136,4 +128,22 @@ input:focus {
 
 .form button {
   margin-left: 8px;
+}
+
+.disabled {
+  color: #165CAB;
+  cursor: not-allowed;
+}
+
+.invalid {
+  border: 1px solid #ff7b00;
+}
+
+.valid {
+  border: 1px solid #0095ff;
+}
+
+.validation-hint {
+  color: darkorange;
+  font-weight: 900;
 }

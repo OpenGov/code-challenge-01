@@ -73,14 +73,25 @@ class Index extends React.Component {
 
         {showContent && <div className="form">
           <input
+            className={this.state.projectName.length < 5 ? 'invalid' : 'valid'}
             type="text"
             placeholder="Add project idea"
             onKeyDown={this.handleKeyPress}
             onChange={this.handleChange}
             value={projectName}
           />
-          <button onClick={this.handleSubmit}>Submit</button>
+          <button
+            className={this.state.projectName.length < 5 ? 'disabled' : ''}
+            onClick={this.handleSubmit}
+            disabled={this.state.projectName.length < 5}
+          >
+            Submit
+          </button>
         </div>}
+        {
+          this.state.projectName.length > 0 && this.state.projectName.length < 5 &&
+          <div className="validation-hint">Project name must be at least 5 characters long</div>
+        }
       </div>
     );
   }
