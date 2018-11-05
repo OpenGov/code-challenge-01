@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { addProject, fetchProjects, upvoteProject } from './actions';
 
+const isValidProjectName = (text) => text.length >= 5
+
 class Index extends React.Component {
   constructor(props) {
     super(props);
@@ -73,7 +75,7 @@ class Index extends React.Component {
 
         {showContent && <div className="form">
           <input
-            className={this.state.projectName.length < 5 ? 'invalid' : 'valid'}
+            className={isValidProjectName(this.state.projectName) ? 'valid' : 'invalid'}
             type="text"
             placeholder="Add project idea"
             onKeyDown={this.handleKeyPress}
@@ -81,15 +83,15 @@ class Index extends React.Component {
             value={projectName}
           />
           <button
-            className={this.state.projectName.length < 5 ? 'disabled' : ''}
+            className={isValidProjectName(this.state.projectName) ? '' : 'disabled'}
             onClick={this.handleSubmit}
-            disabled={this.state.projectName.length < 5}
+            disabled={!isValidProjectName(this.state.projectName)}
           >
             Submit
           </button>
         </div>}
         {
-          this.state.projectName.length > 0 && this.state.projectName.length < 5 &&
+          this.state.projectName.length > 0 && !isValidProjectName(this.state.projectName) &&
           <div className="validation-hint">Project name must be at least 5 characters long</div>
         }
       </div>
