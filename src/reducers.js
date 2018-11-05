@@ -5,6 +5,7 @@ import {
   ADD_PROJECT,
   UPVOTE_PROJECT
 } from './constants';
+import { sortProjectsByName, objectToArray } from './utils';
 
 const initialState = {
   loading: false,
@@ -21,12 +22,11 @@ export const reducer = (state = initialState, action) => {
         error: false
       };
     case PROJECTS_SUCCESS:
+      const sortedProjects = sortProjectsByName(action.projects)
+
       return {
         ...state,
-        projects: action.projects.reduce((projects, project) => {
-          projects[project.id] = project;
-          return projects;
-        }, {}),
+        projects: sortedProjects,
         loading: false,
         error: false
       };
@@ -43,23 +43,27 @@ export const reducer = (state = initialState, action) => {
         votes: 0
       };
 
-      return {
-        ...state,
-        projects: {
-          ...state.projects,
-          [newProject.id]: newProject
-        }
-      };
-    case UPVOTE_PROJECT:
-      const projectClicked = state.projects[action.project.id]
-      const upvotedProj = Object.assign({}, projectClicked, { votes: projectClicked.votes + 1 })
+
+      const allProjects = {
+        ...state.projects,
+        [newProject.id]: newProject
+      }
+
+      const allProjArray = objectToArray(allProjects)
+      const sorted = sortProjectsByName(allProjArray)
 
       return {
         ...state,
         projects: {
-          ...state.projects,
-          [action.project.id]: upvotedProj
+          ...sorted
         }
+      };
+    case UPVOTE_PROJECT:
+      const projectClicked = objectToArray(state.projects).filter(proj => proj.id === action.project.id)[0]
+      projectClicked.votes = projectClicked.votes + 1
+
+      return {
+        ...state
       }
     default:
       return state;

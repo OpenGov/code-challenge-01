@@ -5,10 +5,9 @@ import {
   PROJECTS_SUCCESS,
   PROJECTS_ERROR,
   ADD_PROJECT,
-  UPVOTE_PROJECT
+  UPVOTE_PROJECT,
+  BASE_URL
 } from './constants';
-
-import { BASE_URL } from './utils'
 
 export const projectsRequest = () => {
   return {
