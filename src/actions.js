@@ -8,6 +8,8 @@ import {
   UPVOTE_PROJECT
 } from './constants';
 
+import { BASE_URL } from './utils'
+
 export const projectsRequest = () => {
   return {
     type: PROJECTS_REQUEST
@@ -31,7 +33,7 @@ export const fetchProjects = () => {
   return dispatch => {
     dispatch(projectsRequest());
 
-    return fetch('/projects')
+    return fetch(`${BASE_URL}projects`)
       .then(res => res.json())
       .then(json => dispatch(projectsSuccess(json)))
       .catch(error => dispatch(projectsError()));
