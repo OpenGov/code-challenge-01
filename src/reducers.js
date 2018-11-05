@@ -51,8 +51,15 @@ export const reducer = (state = initialState, action) => {
         }
       };
     case UPVOTE_PROJECT:
+      const projectClicked = state.projects[action.project.id]
+      const upvotedProj = Object.assign({}, projectClicked, { votes: projectClicked.votes + 1 })
+
       return {
-        ...state
+        ...state,
+        projects: {
+          ...state.projects,
+          [action.project.id]: upvotedProj
+        }
       }
     default:
       return state;
